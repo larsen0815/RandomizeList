@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="Randomizer" basedir=".">
+	<description>
+        Build file for Randomizer
+    </description>
+
+	<property file="build.properties" />
+
+	<!-- =====================================================
+			Init
+		 ===================================================== -->
+	<target name="init">
+		<tstamp />
+		<mkdir dir="${build}" />
+	</target>
+
+	<!-- =====================================================
+			Compile the sources
+		 ===================================================== -->
+	<target name="compile" depends="init" description="compile the source">
+		<javac encoding="UTF-8" srcdir="${src}" destdir="${build}" source="${jdk.version}" target="${jdk.version}" includeAntRuntime="no" />
+	</target>
+
+	<!-- =====================================================
+			Build jar file
+		 ===================================================== -->
+	<target name="jar" depends="compile" description="generate the jarfile">
+		<mkdir dir="${dist}" />
+		
+        <jar destfile="${jar.file}">
+            <fileset dir="${build}">
+                <include name="**"/>
+            </fileset>
+            
+             <!-- Create the manifest -->
+             <manifest>
+             		 <attribute name="Main-Class"
+             		            value="${jar.mainclass}"/>
+             	</manifest>
+        </jar>
+
+		<uptodate srcfile="${jar.file}" targetfile="${launch4j.outputfile}" property="launch4j.isUptodate" />
+	</target>
+
+	<!-- =====================================================
+            Launch4j
+         ===================================================== -->
+	<target name="exe" depends="jar" description="Creates a windows executable" unless="launch4j.isUptodate">
+		<taskdef name="launch4j" classname="net.sf.launch4j.ant.Launch4jTask" />
+
+		<launch4j configFile="${launch4j.xml}" jar="${jar.file}" outfile="${launch4j.outputfile}" />
+	</target>
+
+	<!-- =====================================================
+			Generate distribution
+		 ===================================================== -->
+	<target name="dist" depends="exe" description="Create distributable file">
+
+		<!-- copy files from project root -->
+        <copy todir="${dist}">
+            <fileset dir="${basedir}">
+                <include name="appen.txt" />
+            </fileset>
+        </copy>
+
+		<!-- create debug.bat -->
+		<echo file="${dist}/debug.bat" append="false">@echo off${line.separator}rem Use to debug${line.separator}java.exe -jar ${jar.filename}${line.separator}pause${line.separator}exit${line.separator}</echo>
+	</target>
+
+	<!-- =====================================================
+			cleans the project
+		 ===================================================== -->
+	<target name="clean">
+		<delete dir="${build}" />
+		<delete dir="${dist}" />
+	</target>
+
+	<!-- =====================================================
+			Print debugging information
+		 ===================================================== -->
+	<target name="debug">
+		<echoproperties />
+	</target>
+
+</project>

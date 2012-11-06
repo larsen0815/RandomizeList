@@ -1,0 +1,2 @@
+- die anzahl der spieler muss gerade sein
+- spieler, die mit einem kind spielen, bekommen ein "#" und den namen des kindes hintenan gestellt

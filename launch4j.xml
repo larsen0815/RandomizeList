@@ -1,0 +1,18 @@
+<launch4jConfig>
+  <dontWrapJar>false</dontWrapJar>
+  <headerType>gui</headerType>
+  <errTitle></errTitle>
+  <cmdLine></cmdLine>
+  <chdir></chdir>
+  <customProcName>true</customProcName>
+  <stayAlive>false</stayAlive>
+  <downloadUrl>http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html#javasejdk</downloadUrl>
+  <jre>
+    <path></path>
+    <minVersion>1.7.0</minVersion>
+    <maxVersion></maxVersion>
+    <dontUsePrivateJres>false</dontUsePrivateJres>
+    <initialHeapSize>0</initialHeapSize>
+    <maxHeapSize>64</maxHeapSize>
+  </jre>
+</launch4jConfig>
