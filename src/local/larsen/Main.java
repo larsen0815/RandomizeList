@@ -96,7 +96,7 @@ public class Main {
 	private static String getTextFromFile() {
 		StringBuilder result = new StringBuilder();
 
-		File input = new File("appen.txt");
+		File input = new File("players.txt");
 		log("Datei lesen: " + input.getAbsolutePath());
 
 		FileReader reader;
